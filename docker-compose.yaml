@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  db_content_type:
+    image: postgres:latest
+    volumes:
+      - content_data:/var/lib/postgresql/data
+    env_file: .env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+  web_sample:
+    platform: linux/amd64
+    build: .
+    command: python manage.py runserver 0.0.0.0:8001
+    volumes:
+      - .:/content_type
+    ports:
+      - "8001:8001"
+      - "5678:5678"
+    env_file: .env
+    environment:
+      - POSTGRES_NAME=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - db_content_type
+
+volumes:
+  content_data:

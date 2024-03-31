@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.content }}</p>
+    
+    <h2>Comments:</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.text }}</li>
+        {% empty %}
+            <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add a Comment:</h2>
+    <form method="post" action="{% url 'add_comment' 'article' article.id %}">
+        {% csrf_token %}
+        <textarea name="text"></textarea><br>
+        <button type="submit">Add Comment</button>
+    </form>
+</body>
+</html>

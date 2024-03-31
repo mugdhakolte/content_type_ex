@@ -1,0 +1,23 @@
+<!-- comment_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Detail</title>
+</head>
+<body>
+    <h1>Comment</h1>
+    <p>{{ comment.text }}</p>
+
+    <h1>Related Object</h1>
+    {% if content_object %}
+        {% if content_object %}
+            <h2>{{ content_object.title }}</h2>
+        {% endif %}
+        <!-- Add more fields of the related object as needed -->
+    {% else %}
+        <p>No related object found.</p>
+    {% endif %}
+</body>
+</html>
